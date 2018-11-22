@@ -18,11 +18,11 @@ namespace E4_1_Arboles
             arbolBinario.Insertar(75);
             arbolBinario.Insertar(150);
             Console.WriteLine("Impresion preorden: ");
-            arbolBinario.ImprimirPre();
+            arbolBinario.ImprimirPreorden();
             Console.WriteLine("Impresion entreorden: ");
-            arbolBinario.ImprimirEntre();
+            arbolBinario.ImprimirInorden();
             Console.WriteLine("Impresion postorden: ");
-            arbolBinario.ImprimirPost();
+            arbolBinario.ImprimirPostorden();
             Console.WriteLine("Cantidad de nodos del árbol:" + arbolBinario.Cantidad());
             Console.WriteLine("Cantidad de nodos hoja:" + arbolBinario.CantidadNodosHoja());
             Console.WriteLine("Impresion en entreorden junto al nivel del nodo.");
@@ -30,9 +30,6 @@ namespace E4_1_Arboles
             Console.Write("Artura del arbol:");
             Console.WriteLine(arbolBinario.RetornarAltura());
             arbolBinario.MayorValorl();
-            arbolBinario.BorrarMenor();
-            Console.WriteLine("Luego de borrar el menor:");
-            arbolBinario.ImprimirEntre();
 
             Console.ReadKey();
         }

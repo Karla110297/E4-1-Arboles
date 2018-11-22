@@ -8,13 +8,13 @@ namespace E4_1_Arboles
 {
    public class Arbol
     {
-        class Nodo
+        class Nodo//se crea una clase nodo con los siguientes atributos
         {
             public int info;
             public Nodo izquierda, derecha;
         }
         private Nodo raiz;
-        private int cant;
+        private int cantidad;
         private int altura;
 
         public Arbol()
@@ -22,9 +22,9 @@ namespace E4_1_Arboles
             raiz = null;
         }
 
-        public void Insertar(int info)
+        public void Insertar(int info)//se crea un nodo y se guarda la informacion que llega en dicho nodo
         {
-            if (!Existe(info))
+            if (!Existe(info)) //accion en caso de que  no exista la info
             {
                 Nodo nuevo;
                 nuevo = new Nodo();
@@ -35,15 +35,15 @@ namespace E4_1_Arboles
                     raiz = nuevo;
                 else
                 {
-                    Nodo anterior = null, reco;
-                    reco = raiz;
-                    while (reco != null)
+                    Nodo anterior = null, recorrido;
+                    recorrido = raiz;
+                    while (recorrido != null)
                     {
-                        anterior = reco;
-                        if (info < reco.info)
-                            reco = reco.izquierda;
+                        anterior = recorrido;
+                        if (info < recorrido.info)
+                            recorrido = recorrido.izquierda;
                         else
-                            reco = reco.derecha;
+                            recorrido = recorrido.derecha;
                     }
                     if (info < anterior.info)
                         anterior.izquierda = nuevo;
@@ -53,115 +53,115 @@ namespace E4_1_Arboles
             }
         }
 
-        public bool Existe(int info)
+        public bool Existe(int info)//revisa si la info ya esta en guardadada en nodo y si no es asi depende si la cantidad es mayor o menor para ver en que rama se va a agregar
         {
-            Nodo reco = raiz;
-            while (reco != null)
+            Nodo recorrido = raiz;
+            while (recorrido != null)
             {
-                if (info == reco.info)
+                if (info == recorrido.info)
                     return true;
                 else
-                    if (info > reco.info)
-                    reco = reco.derecha;
+                    if (info > recorrido.info)
+                    recorrido = recorrido.derecha;
                 else
-                    reco = reco.izquierda;
+                    recorrido = recorrido.izquierda;
             }
             return false;
         }
 
       
 
-        private void ImprimirPre(Nodo reco)
+        private void ImprimirPreorden(Nodo recorrido)//recorrido impreso en preorden 
         {
-            if (reco != null)
+            if (recorrido != null)
             {
-                Console.Write(reco.info + " ");
-                ImprimirPre(reco.izquierda);
-                ImprimirPre(reco.derecha);
+                Console.Write(recorrido.info + " ");
+                ImprimirPreorden(recorrido.izquierda);
+                ImprimirPreorden(recorrido.derecha);
             }
         }
 
-        public void ImprimirPre()
+        public void ImprimirPreorden()
         {
-            ImprimirPre(raiz);
+            ImprimirPreorden(raiz);
             Console.WriteLine();
         }
 
 
-        private void ImprimirEntre(Nodo reco)
+        private void ImprimirInorden(Nodo recorrido)//recorrido impreso en Inorden
         {
-            if (reco != null)
+            if (recorrido != null)
             {
-                ImprimirEntre(reco.izquierda);
-                Console.Write(reco.info + " ");
-                ImprimirEntre(reco.derecha);
+                ImprimirInorden(recorrido.izquierda);
+                Console.Write(recorrido.info + " ");
+                ImprimirInorden(recorrido.derecha);
             }
         }
 
-        public void ImprimirEntre()
+        public void ImprimirInorden()
         {
-            ImprimirEntre(raiz);
+            ImprimirInorden(raiz);
             Console.WriteLine();
         }
-        private void ImprimirPost(Nodo reco)
+        private void ImprimirPostorden(Nodo recorrido)//recorrido impreso en postorden
         {
-            if (reco != null)
+            if (recorrido != null)
             {
-                ImprimirPost(reco.izquierda);
-                ImprimirPost(reco.derecha);
-                Console.Write(reco.info + " ");
+                ImprimirPostorden(recorrido.izquierda);
+                ImprimirPostorden(recorrido.derecha);
+                Console.Write(recorrido.info + " ");
             }
         }
 
-        public void ImprimirPost()
+        public void ImprimirPostorden()
         {
-            ImprimirPost(raiz);
+            ImprimirPostorden(raiz);
             Console.WriteLine();
         }
 
 
-        private void Cantidad(Nodo reco)
+        private void Cantidad(Nodo recorrido)//Contabiliza la cantidad de nodos en arbol de forma recursiva
         {
-            if (reco != null)
+            if (recorrido != null)
             {
-                cant++;
-                Cantidad(reco.izquierda);
-                Cantidad(reco.derecha);
+                cantidad++;
+                Cantidad(recorrido.izquierda);
+                Cantidad(recorrido.derecha);
             }
         }
 
         public int Cantidad()
         {
-            cant = 0;
+            cantidad = 0;
             Cantidad(raiz);
-            return cant;
+            return cantidad;
         }
 
-        private void CantidadNodosHoja(Nodo reco)
+        private void CantidadNodosHoja(Nodo recorrido)
         {
-            if (reco != null)
+            if (recorrido != null)
             {
-                if (reco.izquierda == null && reco.derecha == null)
-                    cant++;
-                CantidadNodosHoja(reco.izquierda);
-                CantidadNodosHoja(reco.derecha);
+                if (recorrido.izquierda == null && recorrido.derecha == null)
+                    cantidad++;
+                CantidadNodosHoja(recorrido.izquierda);
+                CantidadNodosHoja(recorrido.derecha);
             }
         }
 
         public int CantidadNodosHoja()
         {
-            cant = 0;
+            cantidad = 0;
             CantidadNodosHoja(raiz);
-            return cant;
+            return cantidad;
         }
 
-        private void ImprimirEntreConNivel(Nodo reco, int nivel)
+        private void ImprimirEntreConNivel(Nodo recorrido, int nivel)
         {
-            if (reco != null)
+            if (recorrido != null)
             {
-                ImprimirEntreConNivel(reco.izquierda, nivel + 1);
-                Console.Write(reco.info + " (" + nivel + ") - ");
-                ImprimirEntreConNivel(reco.derecha, nivel + 1);
+                ImprimirEntreConNivel(recorrido.izquierda, nivel + 1);
+                Console.Write(recorrido.info + " (" + nivel + ") - ");
+                ImprimirEntreConNivel(recorrido.derecha, nivel + 1);
             }
         }
 
@@ -171,14 +171,14 @@ namespace E4_1_Arboles
             Console.WriteLine();
         }
 
-        private void RetornarAltura(Nodo reco, int nivel)
+        private void RetornarAltura(Nodo recorrido, int nivel)//Para averiguar la altura del arbol
         {
-            if (reco != null)
+            if (recorrido != null)
             {
-                RetornarAltura(reco.izquierda, nivel + 1);
+                RetornarAltura(recorrido.izquierda, nivel + 1);//se utiliza recursividad
                 if (nivel > altura)
                     altura = nivel;
-                RetornarAltura(reco.derecha, nivel + 1);
+                RetornarAltura(recorrido.derecha, nivel + 1);
             }
         }
 
@@ -189,35 +189,17 @@ namespace E4_1_Arboles
             return altura;
         }
 
-        public void MayorValorl()
+        public void MayorValorl()//Para imprimir el mayor valor del árbol debemos recorrer siempre por derecha hasta encontrar un nodo que almacene null en derecha
         {
             if (raiz != null)
             {
-                Nodo reco = raiz;
-                while (reco.derecha != null)
-                    reco = reco.derecha;
-                Console.WriteLine("Mayor valor del árbol:" + reco.info);
+                Nodo recorrido = raiz;
+                while (recorrido.derecha != null)
+                    recorrido = recorrido.derecha;
+                Console.WriteLine("Mayor valor del árbol:" + recorrido.info);
             }
         }
 
-        public void BorrarMenor()
-        {
-            if (raiz != null)
-            {
-                if (raiz.izquierda == null)
-                    raiz = raiz.derecha;
-                else
-                {
-                    Nodo atras = raiz;
-                    Nodo reco = raiz.izquierda;
-                    while (reco.izquierda != null)
-                    {
-                        atras = reco;
-                        reco = reco.izquierda;
-                    }
-                    atras.izquierda = reco.derecha;
-                }
-            }
-        }
+     
     }
 }
